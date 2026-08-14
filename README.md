@@ -1,35 +1,37 @@
-# 🎵 Universal Media to MP3 Converter (Windows)
+# 🎵 Universal Media to MP3/Audio Converter (Windows)
 
-> Created and maintained by **Saif**
+> Created and maintained by **Saaif**
 
-An interactive, self-contained Windows Batch tool that converts video/audio files (MP4, MKV, AVI, MOV, WEBM, WAV, M4A, FLAC, WMA) into compressed, tagless `.mp3` files — with full control over quality settings, right from a simple menu.
+A single, self-contained Windows `.bat` file that converts video/audio files (MP4, MKV, AVI, MOV, WEBM, WAV, M4A, FLAC, WMA) into MP3, WAV, AAC, or OGG — with an interactive menu covering every important quality and workflow setting. No installers, no extra scripts to manage — just one file.
 
 ## ✨ Features
 
-- 🎞 **Multiple input formats** — MP4, MKV, AVI, MOV, WEBM, WAV, M4A, FLAC, WMA
-- 🧭 **Interactive menus** — choose file type, bitrate, channels, and sample rate at runtime (no editing the script)
-- 📖 **Explains every option** — each menu shows what each setting does to quality and file size before you choose
+- 🎞 **Multiple input formats** — MP4, MKV, AVI, MOV, WEBM, WAV, M4A, FLAC, WMA (pick one or several at once)
+- 🎧 **Multiple output formats** — MP3, WAV, AAC (m4a), OGG
+- 🎚 **CBR or VBR** — choose constant or variable bitrate, with an explanation of each option
+- 🔊 **Volume normalization** — even out loudness across a batch of files
+- ✂️ **Trim support** — convert only a specific start time + duration instead of the whole file
+- 📁 **Custom output folder** — or use the smart default
+- 🔁 **Recursive subfolder scanning** — optionally include files inside subfolders
+- ✂️ **Optional short filenames** — long, messy titles shortened to 1–2 words automatically (with de-duplication)
+- ⏭ **Skip already-converted files** — safe to re-run on a folder without redoing finished work
+- 💾 **Remembers your settings** — save your chosen settings and reuse them next time with one keypress
+- 📊 **Live progress + ETA** — see file count, percentage, and estimated time remaining
+- 🏷 **Strips all metadata** — no ID3 tags, album art, or track info in the output
 - 📦 **Zero manual setup** — automatically finds `ffmpeg.exe` next to the script, in your system `PATH`, or downloads a portable copy on first run
-- 🏷 **Strips all metadata** — no ID3 tags, album art, or track info in the output files
-- ✂️ **Optional short filenames** — long, messy titles can be shortened to 1–2 words automatically (with de-duplication), or you can keep original names
-- 🧵 **Handles special characters & spaces** in filenames safely
-- 🖥 **Single `.bat` file** — no extra scripts, installers, or dependencies to manage
+- 🖱 **Drag & drop support** — drop files or a folder onto the `.bat` to convert just those
+- 🖥 **Single `.bat` file** — everything (including the conversion engine logic) is self-contained inside one file
 
 ## 🚀 Usage
 
 1. Download `media_to_mp3_converter.bat` and place it in the folder containing your media files.
-2. Double-click the `.bat` file.
-3. Follow the on-screen menu:
-   - Select file type to convert
-   - Select bitrate
-   - Select channels (Mono/Stereo)
-   - Select sample rate
-   - Choose whether to shorten output file names
-4. Converted MP3 files will appear in a new `mp3_output` subfolder.
+2. Double-click the `.bat` file (or drag files/a folder onto it).
+3. Follow the on-screen menu — each option explains what it does to quality and file size before you choose.
+4. Converted files will appear in your chosen output folder (default: a subfolder named after the output format, e.g. `mp3_output`).
 
-## ⚙️ Menu Options
+## ⚙️ Menu Options at a Glance
 
-**Bitrate**
+**Bitrate (CBR)**
 
 | Option | Effect |
 |---|---|
@@ -40,22 +42,11 @@ An interactive, self-contained Windows Batch tool that converts video/audio file
 | 192 kbps | Clearly better music quality, bigger file size. |
 | 320 kbps | Best MP3 quality possible, largest file size. |
 
-**Channels**
+**VBR Quality** (0 = best/largest, 9 = worst/smallest)
 
-| Option | Effect |
-|---|---|
-| Mono | Half the file size, sound is centered/flat. Fine for speech. |
-| Stereo | Full left/right separation, fuller sound, bigger file. |
+**Channels:** Mono (smaller, centered sound) or Stereo (fuller sound, bigger file)
 
-**Sample Rate**
-
-| Option | Effect |
-|---|---|
-| 16000 Hz | Telephone quality, speech only. |
-| 22050 Hz | Small file, duller highs, OK for speech/lectures. |
-| 32000 Hz | Acceptable for casual music listening. |
-| 44100 Hz | CD quality — recommended for music. |
-| 48000 Hz | Studio/video standard, slightly bigger file. |
+**Sample Rate:** 16000 Hz (telephone) up to 48000 Hz (studio/video standard); 44100 Hz is CD quality and recommended for music.
 
 ## 🛠 Requirements
 
@@ -73,6 +64,20 @@ Instead, this script handles it automatically:
 
 This keeps the repository lightweight while still giving you a fully working, zero-setup tool.
 
+## 🐢 Why Is Conversion Sometimes Slow?
+
+A few common reasons:
+
+1. **CPU-bound encoding** — MP3/AAC/OGG encoding is done entirely on your CPU (not GPU-accelerated), so speed depends heavily on your processor. Older/weaker CPUs will take noticeably longer per file.
+2. **High input resolution/bitrate video** — Even though only the audio is extracted, ffmpeg still has to **decode** the entire video stream first before discarding it, so a large 4K/1080p file takes longer to process than a small one, even for audio-only output.
+3. **Volume normalization enabled** — The `loudnorm` filter requires ffmpeg to analyze the entire audio track in a first pass before encoding, roughly doubling the time for that file. Turn it off if speed matters more than consistent loudness.
+4. **VBR mode** — Variable bitrate encoding does more analysis per audio frame than fixed CBR, so it's slightly slower (though usually not dramatically so).
+5. **Disk speed** — Reading large source files and writing output from/to a slow HDD (vs SSD) or a network/USB drive adds overhead.
+6. **Many files in one run** — The script processes files one at a time (not in parallel), so total time scales with the number of files, not just their individual size.
+7. **Background downloads** — If `ffmpeg.exe` wasn't already present, the first run includes a one-time ~70–80 MB download, which can look like "slow conversion" but is actually just the download step.
+
+**To speed things up:** turn off normalization if you don't need it, use CBR instead of VBR, keep source files on an SSD, and avoid trimming huge 4K video files (a lower-quality source file converts faster).
+
 ## 🙌 Credit
 
 Built and maintained by **Saif**.
@@ -80,4 +85,4 @@ If this tool saved you time, consider ⭐ starring the repo!
 
 ## 📄 License
 
-MIT — free to use, Not Allow to modify, and share possible.
+MIT — free to use, and share ,Not Allow Not Modify.

@@ -1,6 +1,6 @@
 # 🎵 Universal Media to MP3/Audio Converter (Windows)
 
-> Created and maintained by **Saaif**
+> Created and maintained by **Saif**
 
 A single, self-contained Windows `.bat` file that converts video/audio files (MP4, MKV, AVI, MOV, WEBM, WAV, M4A, FLAC, WMA) into MP3, WAV, AAC, or OGG — with an interactive menu covering every important quality and workflow setting. No installers, no extra scripts to manage — just one file.
 

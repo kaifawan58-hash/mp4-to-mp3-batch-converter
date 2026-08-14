@@ -3,7 +3,7 @@ setlocal enabledelayedexpansion
 
 echo ============================================
 echo   Universal Media to MP3/Audio Converter
-echo   Created by Saaif
+echo   Created by Saif
 echo ============================================
 echo.
 

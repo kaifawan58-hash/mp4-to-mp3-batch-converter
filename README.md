@@ -22,9 +22,9 @@ A single, self-contained Windows `.bat` file that converts video/audio files (MP
 - 🖱 **Drag & drop support** — drop files or a folder onto the `.bat` to convert just those
 - 🖥 **Single `.bat` file** — everything (including the conversion engine logic) is self-contained inside one file
 
-## 🚀 Usage
+## 🚀 Usage Instructions
 
-1. Download `media_to_mp3_converter.bat` and place it in the folder containing your media files.
+1.Download media_to_mp3_converter.bat along with both ffmpeg.part1 and ffmpeg.part2.(Note: FFmpeg has been split into parts due to GitHub's 25MB file upload limit).Simply extract both parts using WinRAR, and then place   the .bat file and the extracted ffmpeg.exe into the folder that contains your media files
 2. Double-click the `.bat` file (or drag files/a folder onto it).
 3. Follow the on-screen menu — each option explains what it does to quality and file size before you choose.
 4. Converted files will appear in your chosen output folder (default: a subfolder named after the output format, e.g. `mp3_output`).
@@ -52,17 +52,6 @@ A single, self-contained Windows `.bat` file that converts video/audio files (MP
 
 - Windows 10 / 11
 - Internet connection (only needed once, if `ffmpeg.exe` isn't already present)
-
-## ⚠️ Note: Why `ffmpeg.exe` is NOT included in this repo
-
-`ffmpeg.exe` (the full build with encoders like `libmp3lame`) is typically **60–90+ MB**, which exceeds **GitHub's 25 MB file upload limit** through the web UI, and bloats the repository unnecessarily even via Git.
-
-Instead, this script handles it automatically:
-- If `ffmpeg.exe` already exists next to the script, it's used directly.
-- If `ffmpeg` is available in your system `PATH`, it's used directly.
-- Otherwise, the script **automatically downloads** a portable ffmpeg build from [gyan.dev](https://www.gyan.dev/ffmpeg/builds/) on first run and sets it up — no manual steps required.
-
-This keeps the repository lightweight while still giving you a fully working, zero-setup tool.
 
 ## 🐢 Why Is Conversion Sometimes Slow?
 

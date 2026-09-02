@@ -24,9 +24,12 @@ A single, self-contained Windows `.bat` file that converts video/audio files (MP
 
 ## 🚀 Usage Instructions
 
-1.Download media_to_mp3_converter.bat along with both ffmpeg.part1 and ffmpeg.part2.(Note: FFmpeg has been split into parts due to GitHub's 25MB file upload limit).Simply extract both parts using WinRAR, and then place   the .bat file and the extracted ffmpeg.exe into the folder that contains your media files
+1.Download media_to_mp3_converter.bat along with both ffmpeg.part1 and ffmpeg.part2.(Note: FFmpeg has been split into parts due to GitHub's 25MB file upload limit).Simply extract both parts using WinRAR, and then place      the .bat file and the extracted ffmpeg.exe into the folder that contains your media files
+
 2. Double-click the `.bat` file (or drag files/a folder onto it).
+
 3. Follow the on-screen menu — each option explains what it does to quality and file size before you choose.
+
 4. Converted files will appear in your chosen output folder (default: a subfolder named after the output format, e.g. `mp3_output`).
 
 ## ⚙️ Menu Options at a Glance
